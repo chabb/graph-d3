@@ -1,0 +1,54 @@
+<nz-layout class="app-container">
+  <nz-header class="app-header">
+    <span class="title"> Graph Builder </span>
+  </nz-header>
+  <nz-content class="wrapper">
+    <nz-layout class="app-canvas">
+      <nz-sider nzWidth="80px">
+        <div class="logo"></div>
+        <ul class="nav-bar" nz-menu nzTheme="dark" nzMode="inline">
+          <li *ngFor="let navItem of navItems.slice(0, navItems.length - 1)">
+            <a
+              [routerLink]="navItem.target"
+              class="nav-item"
+              [class.active-link]="navItem.target === (activeRoute$ | async)"
+            >
+              <i class="nav-icon" nz-icon [nzType]="navItem.icon"></i>
+              <span class="nav-title">{{ navItem.label }}</span>
+            </a>
+          </li>
+
+          <li nz-menu-divider></li>
+          <li class="down-item">
+            <a
+              [routerLink]="navItems[navItems.length - 1].target"
+              class="nav-item"
+              [class.active-link]="
+                navItems[navItems.length - 1].target === (activeRoute$ | async)
+              "
+            >
+              <i
+                class="nav-icon"
+                nz-icon
+                [nzType]="navItems[navItems.length - 1].icon"
+              ></i>
+              <span class="nav-title">{{
+                navItems[navItems.length - 1].label
+              }}</span>
+            </a>
+          </li>
+        </ul>
+      </nz-sider>
+      <nz-content>
+        <h1 class="app-title">{{ routeToApp[activeRoute$ | async] }}</h1>
+        <router-outlet></router-outlet>
+      </nz-content>
+    </nz-layout>
+  </nz-content>
+  <nz-footer class="footer">
+    <span class="lawrence-copyright">
+      © Lawrence Berkeley National Laboratory, 2019
+    </span>
+    <a class="lawrence-logo" href="https://www.lbl.gov/"> </a>
+  </nz-footer>
+</nz-layout>
